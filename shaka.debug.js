@@ -1,7 +1,7 @@
 /*
  @license
  Shaka Player
- Copyright 2016 Google LLC, 1
+ Copyright 2016 Google LLC
  SPDX-License-Identifier: Apache-2.0
 */
 (function(){var innerGlobal=typeof window!="undefined"?window:global;var exportTo={};(function(window,global,module){/*
@@ -424,7 +424,7 @@ shaka.util.LanguageUtils.isoMap_=new Map([["aar","aa"],["abk","ab"],["afr","af"]
 shaka.util.StreamUtils.getVariantsByCodecs_=function(a){var b=new shaka.util.MultiMap;a=$jscomp.makeIterator(a);for(var c=a.next();!c.done;c=a.next()){c=c.value;var d=shaka.util.StreamUtils.getGroupVariantCodecs_(c);b.push(d,c)}return b};
 shaka.util.StreamUtils.filterVariantsByDensity_=function(a){var b=0,c=new Map,d=a.size();a.forEach(function(e,f){for(var g=$jscomp.makeIterator(f),h=g.next();!h.done;h=g.next()){h=h.value;var k=h.video;if(k&&k.width&&k.height){k=k.width*k.height*(k.frameRate||1);c.has(k)||c.set(k,new shaka.util.MultiMap);var l=c.get(k);l.push(e,h);l.size()===d&&(b=Math.max(b,k))}}});return b?c.get(b):a};
 shaka.util.StreamUtils.findBestCodecs_=function(a){var b="",c=Infinity;a.forEach(function(d,e){for(var f=0,g=0,h=$jscomp.makeIterator(e),k=h.next();!k.done;k=h.next())f+=k.value.bandwidth||0,++g;f/=g;shaka.log.debug("codecs",d,"avg bandwidth",f);f<c&&(b=d,c=f)});goog.asserts.assert(""!==b,"Should have chosen codecs!");goog.asserts.assert(!isNaN(c),"Bandwidth should be a number!");return b};
-shaka.util.StreamUtils.getGroupVariantCodecs_=function(a){var b="";a.video&&(b=shaka.util.MimeUtils.getCodecBase(a.video.codecs));var c="";a.audio&&(c=shaka.util.MimeUtils.getCodecBase(a.audio.codecs));return b+"-"+c};shaka.util.StreamUtils.filterByRestrictions=function(a,b,c){a.variants=a.variants.filter(function(d){return shaka.util.StreamUtils.meetsRestrictions(d,b,c)})};
+shaka.util.StreamUtils.getGroupVariantCodecs_=function(a){var b="";a.video&&(b=shaka.util.MimeUtils.getCodecBase(a.video.codecs));return b};shaka.util.StreamUtils.filterByRestrictions=function(a,b,c){a.variants=a.variants.filter(function(d){return shaka.util.StreamUtils.meetsRestrictions(d,b,c)})};
 shaka.util.StreamUtils.meetsRestrictions=function(a,b,c){var d=function(f,g,h){return f>=g&&f<=h},e=a.video;return e&&e.width&&e.height&&(!d(e.width,b.minWidth,Math.min(b.maxWidth,c.width))||!d(e.height,b.minHeight,Math.min(b.maxHeight,c.height))||!d(e.width*e.height,b.minPixels,b.maxPixels))||a&&a.video&&a.video.frameRate&&!d(a.video.frameRate,b.minFrameRate,b.maxFrameRate)||!d(a.bandwidth,b.minBandwidth,b.maxBandwidth)?!1:!0};
 shaka.util.StreamUtils.applyRestrictions=function(a,b,c){var d=!1;a=$jscomp.makeIterator(a);for(var e=a.next();!e.done;e=a.next()){e=e.value;var f=e.allowedByApplication;e.allowedByApplication=shaka.util.StreamUtils.meetsRestrictions(e,b,c);f!=e.allowedByApplication&&(d=!0)}return d};
 shaka.util.StreamUtils.filterManifest=function(a,b,c,d){return $jscomp.asyncExecutePromiseGeneratorProgram(function(e){if(1==e.nextAddress)return d?e.yield(shaka.util.StreamUtils.filterManifestByMediaCapabilities(c,0<c.offlineSessionIds.length),2):(shaka.util.StreamUtils.filterManifestByDrm(c,a),shaka.util.StreamUtils.filterManifestByMediaSource(c),e.jumpTo(2));shaka.util.StreamUtils.filterManifestByCurrentVariant(b,c);shaka.util.StreamUtils.filterTextStreams_(c);shaka.util.StreamUtils.filterImageStreams_(c);
