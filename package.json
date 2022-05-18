@@ -1,0 +1,23 @@
+{
+  "name": "test-shaka",
+  "version": "1.0.0",
+  "description": "",
+  "main": "shaka.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hcodes/test-shaka.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hcodes/test-shaka/issues"
+  },
+  "homepage": "https://github.com/hcodes/test-shaka#readme",
+  "dependencies": {
+    "mux.js": "^6.0.1",
+    "shaka-player": "^4.0.1"
+  }
+}
